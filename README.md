@@ -5,7 +5,8 @@
 JAVA SDK - 17</br>
 SprinbBoot - 3.0.4</br>
 DB - MariaDB ver15</br>
-![새로운 메모](https://user-images.githubusercontent.com/63823929/235339600-5d6b93b3-118b-4a0b-9139-c7ab1f5bf610.jpeg)
+![새로운 메모](https://user-images.githubusercontent.com/63823929/235339600-5d6b93b3-118b-4a0b-9139-c7ab1f5bf610.jpeg)</br>
+형태소 분석 라이브러리 - opennlp
 ### DB 테이블
 Board
 ![새로운 메모](https://user-images.githubusercontent.com/63823929/235339784-99554f70-7afe-4919-9ea8-5409ad7a5c0f.jpeg)</br>

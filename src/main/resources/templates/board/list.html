@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}" th:fragment="content">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.min.css}" />
+    <title>게시판</title>
+</head>
+<th:block layout:fragment="content">
+    <!--/* 게시글 영역 */-->
+    <div class="table-responsive clearfix">
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>등록일</th>
+            </tr>
+            </thead>
+            <!--/* 게시글 리스트 Rendering 영역 */-->
+            <tbody id="list">
+
+            </tbody>
+        </table>
+        <div class="btn_wrap text-right">
+            <a th:href="@{/board/write}" class="btn btn-primary waves-effect waves-light">Write</a>
+        </div>
+        <!-- 페이지네이션 Rendering 영역 -->
+        <nav>
+
+        </nav>
+    </div>
+</th:block>
+<script th:src="@{/scripts/moment.min.js}"></script>
+<script th:src="@{/scripts/jquery.min.js}"></script>
+<script th:src="@{/scripts/main.js}"></script>
+<script th:src="@{/plugin/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}"></script>
+
+<!--/* JavaScript 영역 */-->
+<th:block layout:fragment="script"></th:block>
+<script th:inline="javascript">
+    /**
+     * 페이지 로딩 시점에 실행되는 함수
+     */
+    window.onload = () => {
+        findAll();
+    }
+
+    /**
+     * 게시글 리스트 조회
+     */
+    function findAll() {
+        fetch('/api/boards').then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+        }).then(json => {
+            let html = '';
+
+            if (!json.length) {
+                html = '<td colspan="5">등록된 게시글이 없습니다.</td>';
+            } else {
+                json.forEach((obj, idx) => {
+                    html += `
+							<tr>
+    							<td>${json.length - idx}</td>
+    							<td class="text-left">
+    								<a href="javascript: void(0);" onclick="goView(${obj.id})">${obj.title}</a>
+    							</td>
+    							<td>${moment(obj.createdDate).format('YYYY-MM-DD HH:mm:ss')}</td>
+							</tr>
+						`;
+                });
+            }
+            document.getElementById('list').innerHTML = html;
+        });
+    }
+
+    /**
+     * 게시글 조회
+     */
+    function goView(id) {
+        location.href = `/board/view/${id}`;
+    }
+</script>
+</html>

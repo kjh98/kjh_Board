@@ -58,7 +58,7 @@
      * 게시글 리스트 조회
      */
     function findAll() {
-        fetch('/api/boards').then(response => {
+        fetch('/api/boards?deleteYn=N').then(response => {
             if (response.ok) {
                 return response.json();
             }

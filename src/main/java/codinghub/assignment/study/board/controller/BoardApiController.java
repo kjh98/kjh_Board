@@ -33,13 +33,13 @@ public class BoardApiController {
         return boardService.delete(id);
     }
 
-    /**
-     * 게시글 리스트 조회
-     */
-    @GetMapping("/boards")
-    public List<BoardResponseDto> findAll() {
-        return boardService.findAll();
-    }
+//    /**
+//     * 게시글 리스트 조회
+//     */
+//    @GetMapping("/boards")
+//    public List<BoardResponseDto> findAll() {
+//        return boardService.findAll();
+//    }
 
     /**
      * 게시글 수정
@@ -54,6 +54,13 @@ public class BoardApiController {
     @GetMapping("/boards/{id}")
     public BoardResponseDto findById(@PathVariable final Long id) {
         return boardService.findById(id);
+    }
+    /**
+     * 게시글 리스트 조회
+     */
+    @GetMapping("/boards")
+    public List<BoardResponseDto> findAll(@RequestParam final char deleteYn) {
+        return boardService.findAllByDeleteYn(deleteYn);
     }
 
 
